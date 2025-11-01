@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api";
 
 type AuthResponse = {
   success: boolean;
@@ -28,6 +28,7 @@ export async function handleAuth(
       body: JSON.stringify({ email, password }),
     });
 
+    console.log(response);
     const data = await response.json();
 
     if (!response.ok) {
