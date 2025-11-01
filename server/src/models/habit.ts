@@ -20,7 +20,7 @@ export class Habit {
 	name!: string;
 
 	@Column({ type: 'text', nullable: true })
-	description!: string;
+	description!: string | null;
 
 	@Column({ type: 'int', default: 7 })
 	targetFrequency!: number;

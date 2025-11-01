@@ -37,9 +37,9 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 		await userRepository.save(user);
 
 		const token = jwt.sign(
-			{ userId: user.id, email: user.email } as JwtPayload,
+			{ userId: user.id, email: user.email },
 			env.jwt.secret,
-			{ expiresIn: env.jwt.expiresIn },
+			{ expiresIn: env.jwt.expiresIn } as jwt.SignOptions,
 		);
 
 		res.status(201).json({
@@ -83,9 +83,9 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 		}
 
 		const token = jwt.sign(
-			{ userId: user.id, email: user.email } as JwtPayload,
+			{ userId: user.id, email: user.email },
 			env.jwt.secret,
-			{ expiresIn: env.jwt.expiresIn },
+			{ expiresIn: env.jwt.expiresIn } as jwt.SignOptions,
 		);
 
 		res.status(200).json({

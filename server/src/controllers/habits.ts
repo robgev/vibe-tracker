@@ -17,20 +17,21 @@ const validateDescription = (description: unknown): string | null => {
 	if (description === undefined || description === null) {
 		return null;
 	}
-	return typeof description === 'string' && description.trim()
-		? description.trim()
-		: null;
+	const trimmed = typeof description === 'string' ? description.trim() : '';
+	return trimmed || null;
 };
 
 const validateTargetFrequency = (targetFrequency: unknown): number => {
 	if (targetFrequency === undefined) {
-		return 7; // Default value
+		return 7;
 	}
-	if (
-		!Number.isInteger(targetFrequency) ||
-		targetFrequency < 1 ||
-		targetFrequency > 7
-	) {
+	if (typeof targetFrequency !== 'number' || !Number.isInteger(targetFrequency)) {
+		throw new AppError(
+			400,
+			'Target frequency must be an integer between 1 and 7',
+		);
+	}
+	if (targetFrequency < 1 || targetFrequency > 7) {
 		throw new AppError(
 			400,
 			'Target frequency must be an integer between 1 and 7',
